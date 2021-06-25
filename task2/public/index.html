@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2</title>
+</head>
+
+<body>
+    <h1>Request limiter</h1>
+    <form onsubmit="callServer(event)">
+        <input class="priority" type="number" name="priority" min="0" max="100" value="0"><br />
+        <label>Leave 0 for no priority. Put value from 1 to 100 for request priority.</label><br />
+        <input class="submit" type="submit" value="Submit 100 requests">
+    </form>
+</body>
+
+</html>
+
+<script>
+    function callServer(event) {
+        event.preventDefault();
+
+        const priority = event.target['priority'].value;
+
+        for (let i = 1; i <= 100; i++) {
+            if (priority == i) fetch(`/call?priority=${priority}&key=${i}`);
+            else fetch(`/call?key=${i}`);
+        }
+        alert('Requests submitted.');
+    }
+</script>
+
+<style>
+    body {
+        background-color: #f0ffff;
+        text-align: center;
+    }
+
+    .priority {
+        margin: 100px 10px 10px;
+    }
+
+    .submit {
+        padding: 5px;
+        width: 150px;
+        height: 50px;
+        background-color: #00806b;
+        color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 30px;
+    }
+
+    button:hover {
+        color: #ccc;
+    }
+</style>
